@@ -114,7 +114,6 @@ export async function initVersionHistoryEditor(
       include: ['ly.img.image.*']
     })
   );
-
 }
 
 // ============================================================================
