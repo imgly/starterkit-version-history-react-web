@@ -1,42 +1,29 @@
 /**
  * CE.SDK Version History Starterkit - React Entry Point
  *
- * Editor with version history, snapshots, and restore functionality.
+ * A design editor with version history (snapshot) functionality.
+ * Allows users to save snapshots, view history, and load previous versions.
  *
  * @see https://img.ly/docs/cesdk/js/getting-started/
  */
 
-import type { Configuration } from '@cesdk/cesdk-js';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-
+import { Configuration } from '@cesdk/cesdk-js';
 import App from './app/App';
 
-// ============================================================================
-// Configuration
-// ============================================================================
-
-const config: Configuration = {
-  // Unique user identifier for analytics (customize for your app)
+export const editorConfig: Configuration = {
   userId: 'starterkit-version-history-user',
 
-  // Local assets (uncomment and set path for self-hosted assets)
-  // baseURL: `/assets/`,
-
-  // License key (required for production)
-  // license: 'YOUR_LICENSE_KEY',
+  // Local assets for development
 
   // Role: Creator has full editing capabilities
-  role: 'Creator'
+  role: 'Creator',
+
 };
 
-// ============================================================================
-// Initialize React Application
-// ============================================================================
-
-const container = document.getElementById('root');
-if (!container) {
-  throw new Error('Root container not found');
-}
-
-const root = createRoot(container);
-root.render(<App editorConfig={config} />);
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App editorConfig={editorConfig} />
+  </StrictMode>
+);
