@@ -5,7 +5,7 @@
  * No React or state management - just CE.SDK operations.
  */
 
-import CreativeEditorSDK from '@cesdk/cesdk-js';
+import type CreativeEditorSDK from '@cesdk/cesdk-js';
 
 /**
  * Create a snapshot from the current editor state.
