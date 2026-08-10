@@ -56,7 +56,7 @@ export default function App({ editorConfig }: AppProps) {
     // ============================================================================
 
     // Load the first snapshot as the initial scene
-    await cesdk.loadFromURL(getInitialSceneUrl());
+    await cesdk.load(getInitialSceneUrl());
 
     // Register save action (app-layer callback)
     cesdk.actions.register('saveScene', async () => {
