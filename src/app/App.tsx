@@ -20,6 +20,7 @@ import {
 import './App.css';
 import './HistoryPanel/HistoryPanel.css';
 
+
 interface AppProps {
   editorConfig: Configuration;
 }
