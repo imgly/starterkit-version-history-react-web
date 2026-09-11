@@ -9,7 +9,7 @@ import { useState, useRef, useCallback } from 'react';
 import CreativeEditorSDK, { Configuration } from '@cesdk/cesdk-js';
 import CreativeEditor from '@cesdk/cesdk-js/react';
 import { HistoryPanel } from './HistoryPanel/HistoryPanel';
-import { Snapshot } from '../imgly';
+import { Snapshot } from './types';
 import {
   initVersionHistoryEditor,
   loadSnapshot,
@@ -19,7 +19,6 @@ import {
 } from '../imgly';
 import './App.css';
 import './HistoryPanel/HistoryPanel.css';
-
 
 interface AppProps {
   editorConfig: Configuration;
@@ -57,7 +56,7 @@ export default function App({ editorConfig }: AppProps) {
     // ============================================================================
 
     // Load the first snapshot as the initial scene
-    await cesdk.load(getInitialSceneUrl());
+    await cesdk.loadFromURL(getInitialSceneUrl());
 
     // Register save action (app-layer callback)
     cesdk.actions.register('saveScene', async () => {
