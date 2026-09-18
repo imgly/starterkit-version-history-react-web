@@ -5,7 +5,7 @@
  * It configures CE.SDK with snapshot functionality, allowing users to save and load
  * previous versions of their designs.
  *
- * @see https://img.ly/docs/cesdk/js/getting-started/
+ * @see https://img.ly/docs/cesdk/js/get-started/overview-e18f40/
  */
 
 import type CreativeEditorSDK from '@cesdk/cesdk-js';
@@ -28,7 +28,7 @@ import {
 } from '@cesdk/cesdk-js/plugins';
 
 import { DesignEditorConfig } from './config/plugin';
-import { Snapshot } from '../app/types';
+import { Snapshot } from './snapshots';
 
 // Re-export plugin for external use
 export { DesignEditorConfig } from './config/plugin';
@@ -38,6 +38,7 @@ export { createSnapshot } from './history';
 
 // Export initial snapshots data
 export { INITIAL_SNAPSHOTS, getInitialSceneUrl } from './snapshots';
+export type { Snapshot } from './snapshots';
 
 // ============================================================================
 // Main Initialization
@@ -70,52 +71,54 @@ export async function initVersionHistoryEditor(
   // ============================================================================
 
   // Color palettes for design
-  await cesdk.addPlugin(new ImageColorsAssetSource());
-  await cesdk.addPlugin(new ColorPaletteAssetSource());
+  await Promise.all([
+    cesdk.addPlugin(new ImageColorsAssetSource()),
+    cesdk.addPlugin(new ColorPaletteAssetSource()),
 
-  // Typeface/font assets
-  await cesdk.addPlugin(new TypefaceAssetSource());
+    // Typeface/font assets
+    cesdk.addPlugin(new TypefaceAssetSource()),
 
-  // Text presets
-  await cesdk.addPlugin(new TextAssetSource());
+    // Text presets
+    cesdk.addPlugin(new TextAssetSource()),
 
-  // Text components
-  await cesdk.addPlugin(new TextComponentAssetSource());
+    // Text components
+    cesdk.addPlugin(new TextComponentAssetSource()),
 
-  // Vector shapes
-  await cesdk.addPlugin(new VectorShapeAssetSource());
+    // Vector shapes
+    cesdk.addPlugin(new VectorShapeAssetSource()),
 
-  // Sticker assets
-  await cesdk.addPlugin(new StickerAssetSource());
+    // Sticker assets
+    cesdk.addPlugin(new StickerAssetSource()),
 
-  // Visual effects
-  await cesdk.addPlugin(new EffectsAssetSource());
+    // Visual effects
+    cesdk.addPlugin(new EffectsAssetSource()),
 
-  // Photo filters
-  await cesdk.addPlugin(new FiltersAssetSource());
+    // Photo filters
+    cesdk.addPlugin(new FiltersAssetSource()),
 
-  // Blur presets
-  await cesdk.addPlugin(new BlurAssetSource());
+    // Blur presets
+    cesdk.addPlugin(new BlurAssetSource()),
 
-  // Page format presets
-  await cesdk.addPlugin(new PagePresetsAssetSource());
+    // Page format presets
+    cesdk.addPlugin(new PagePresetsAssetSource()),
 
-  // Crop presets
-  await cesdk.addPlugin(new CropPresetsAssetSource());
+    // Crop presets
+    cesdk.addPlugin(new CropPresetsAssetSource()),
 
-  // Local upload sources
-  await cesdk.addPlugin(
-    new UploadAssetSources({
-      include: ['ly.img.image.upload']
-    })
-  );
+    // Local upload sources
+    cesdk.addPlugin(
+      new UploadAssetSources({
+        include: ['ly.img.image.upload']
+      })
+    ),
 
-  // Demo assets
-  await cesdk.addPlugin(
-    new DemoAssetSources({
-      include: ['ly.img.image.*']
-    })
-  );
+    // Demo assets
+    cesdk.addPlugin(
+      new DemoAssetSources({
+        include: ['ly.img.image.*']
+      })
+    )
+  ]);
 }
 
 // ============================================================================
@@ -132,7 +135,7 @@ export async function loadSnapshot(
   cesdk: CreativeEditorSDK,
   snapshot: Snapshot
 ): Promise<void> {
-  await cesdk.loadFromURL(snapshot.sceneUrl);
+  await cesdk.load(snapshot.sceneUrl);
   const page = cesdk.engine.scene.getPages()[0];
   if (page) {
     cesdk.engine.scene.enableZoomAutoFit(page, 'Both', 20.0, 20.0, 20.0, 20.0);
