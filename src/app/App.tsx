@@ -46,6 +46,8 @@ export default function App({ editorConfig }: AppProps) {
     // Store ref for snapshot loading
     cesdkRef.current = cesdk;
 
+    // Debug access (remove in production)
+    (window as unknown as { cesdk: CreativeEditorSDK }).cesdk = cesdk;
 
     // Initialize editor with SDK config (plugins, asset sources, theme)
     await initVersionHistoryEditor(cesdk);
