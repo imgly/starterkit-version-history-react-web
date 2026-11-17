@@ -28,7 +28,7 @@ import {
 } from '@cesdk/cesdk-js/plugins';
 
 import { DesignEditorConfig } from './config/plugin';
-import { Snapshot } from './snapshots';
+import type { Snapshot } from './snapshots';
 
 // Re-export plugin for external use
 export { DesignEditorConfig } from './config/plugin';
