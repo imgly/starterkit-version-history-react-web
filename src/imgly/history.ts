@@ -23,16 +23,13 @@ export async function createSnapshot(
 ): Promise<{ thumbnailUrl: string; sceneUrl: string }> {
   const engine = cesdk.engine;
   const scene = engine.scene.get();
-  if (!scene) {
+  // A scene can have block id 0, so test for null and not for a falsy value.
+  if (scene === null) {
     throw new Error('No scene available');
   }
 
-  // Create thumbnail from current scene
-  const thumbnailBlob = await engine.block.export(scene, {
-    mimeType: 'image/jpeg',
-    targetWidth: 168,
-    targetHeight: 168
-  });
+  // A preview does not count as an export, unlike `engine.block.export`.
+  const thumbnailBlob = await engine.block.exportPreview(scene);
   const thumbnailUrl = URL.createObjectURL(thumbnailBlob);
 
   // Create blob URL for scene data

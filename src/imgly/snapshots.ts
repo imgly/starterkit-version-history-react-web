@@ -67,7 +67,7 @@ export function getSnapshots(): Snapshot[] {
  * @returns The URL of the first snapshot's scene
  */
 export function getInitialSceneUrl(): string {
-  return INITIAL_SNAPSHOTS[0].sceneUrl;
+  return INITIAL_SNAPSHOTS[0]!.sceneUrl;
 }
 
 /**
